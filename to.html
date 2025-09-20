@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Todo in ~30 Lines of JS</title>
+  <style>
+    main { max-width: 520px; margin: 40px auto; font-family: system-ui, sans-serif; }
+    header { font-weight: 700; margin-bottom: 10px; }
+    #bar { display: flex; gap: 8px; }
+    input, button { padding: 10px; font-size: 16px; }
+    ul { list-style: none; padding: 0; margin-top: 16px; }
+    li { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; }
+    .rm { cursor: pointer; border: 1px solid #ddd; background: #fff; padding: 4px 8px; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>Todo (localStorage)</header>
+    <div id="bar">
+      <input id="todo-input" placeholder="Add a task" />
+      <button id="add-btn">Add</button>
+    </div>
+    <ul id="list"></ul>
+  </main>
+
+  <script>
+    const input = document.querySelector('#todo-input');
+    const add = document.querySelector('#add-btn');
+    const list = document.querySelector('#list');
+
+    const save = () => localStorage.setItem('todos', list.innerHTML);
+    const load = () => list.innerHTML = localStorage.getItem('todos') || '';
+    load();
+
+    add.addEventListener('click', () => {
+      if (!input.value.trim()) return;
+      const li = document.createElement('li');
+      li.innerHTML = input.value + ' <button class="rm">×</button>';
+      list.appendChild(li);
+      input.value = '';
+      save();
+    });
+
+    list.addEventListener('click', e => {
+      if (e.target.classList.contains('rm')) {
+        e.target.parentElement.remove(); save();
+      }
+    });
+
+    // Optional: Enter key to add
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') add.click(); });
+  </script>
+</body>
+</html>

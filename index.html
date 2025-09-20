@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Coding Blog</title>
+  <meta name="description" content="Beginner-friendly coding tutorials and reusable snippets." />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <style>pre[class*="language-"]{background:#0b1020}</style>
+</head>
+<body>
+  <div class="container">
+    <header class="nav">
+      <div class="brand">⟨Your Coding Blog⟩</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/snippets.html">Snippets</a>
+        <a href="https://substack.com" target="_blank" rel="noopener">Newsletter</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>Practical tutorials & copy‑paste snippets</h1>
+      <p class="meta">Short posts. Beginner friendly. One useful thing per article.</p>
+    </section>
+
+    <section class="post-list" id="post-list">
+      <h2>Latest posts</h2>
+
+      <article>
+        <h3><a href="/posts/01-todo-30-lines.html">Build a Todo App in ~30 Lines of JS</a></h3>
+        <p><span class="tag">Beginner</span> • Learn querySelector, events, and localStorage.</p>
+      </article>
+
+      <article>
+        <h3><a href="/posts/02-dom-cheatsheet.html">DOM Cheatsheet: querySelector by example</a></h3>
+        <p><span class="tag">Reference</span> • Find, iterate, and edit elements the easy way.</p>
+      </article>
+    </section>
+
+    <div class="footer">© <span id="y"></span> Your Name • <a href="/snippets.html">Code Snippets</a></div>
+  </div>
+
+  <script>document.getElementById('y').textContent=(new Date()).getFullYear();</script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markup.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-css.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+</body>
+</html>

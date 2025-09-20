@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Code Snippets</title>
+  <meta name="description" content="Reusable, tiny JavaScript snippets." />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" />
+  <style>pre[class*="language-"]{background:#0b1020}</style>
+</head>
+<body>
+  <div class="container">
+    <header class="nav"><a href="/">← Home</a><h1>Code Snippets</h1></header>
+
+    <article>
+      <h3>Debounce (1-liner)</h3>
+      <pre><button class="copy-btn">Copy</button><code class="language-js">const debounce=(fn,d=250)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),d)}}
+</code></pre>
+
+      <h3>Throttle (minimal)</h3>
+      <pre><button class="copy-btn">Copy</button><code class="language-js">const throttle=(fn,d=250)=>{let r=0;return(...a)=>{const n=Date.now();if(n-r&gt;=d){r=n;fn(...a)}}}
+</code></pre>
+
+      <h3>Copy to clipboard</h3>
+      <pre><button class="copy-btn">Copy</button><code class="language-js">const copy = async s => navigator.clipboard.writeText(s)
+</code></pre>
+
+      <h3>Clamp number</h3>
+      <pre><button class="copy-btn">Copy</button><code class="language-js">const clamp=(n,min,max)=>Math.min(max,Math.max(min,n))
+</code></pre>
+
+      <h3>Slugify</h3>
+      <pre><button class="copy-btn">Copy</button><code class="language-js">const toSlug=s=>s.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-')
+</code></pre>
+    </article>
+
+    <div class="footer">Want more? Subscribe to the newsletter.</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(b=>{
+      b.addEventListener('click', async e=>{
+        const code = e.target.nextElementSibling?.innerText || '';
+        try { await navigator.clipboard.writeText(code); b.textContent='Copied!'; setTimeout(()=>b.textContent='Copy', 1200); }
+        catch { b.textContent='Failed'; setTimeout(()=>b.textContent='Copy', 1200); }
+      })
+    })
+  </script>
+</body>
+</html>

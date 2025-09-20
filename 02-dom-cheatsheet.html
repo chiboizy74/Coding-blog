@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DOM Cheatsheet: querySelector by example</title>
+  <meta name="description" content="Find, iterate, and edit DOM elements the easy way." />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" />
+  <style>pre[class*="language-"]{background:#0b1020}</style>
+</head>
+<body>
+  <div class="container">
+    <header class="nav"><a href="/">← Home</a></header>
+    <article>
+      <h1>DOM Cheatsheet: <code>querySelector</code> by example</h1>
+
+      <h2>Select elements</h2>
+      <pre><button class="copy-btn">Copy</button><code class="language-js">document.querySelector('#id')      // first match by id
+document.querySelector('.btn')     // first with class
+document.querySelector('button')   // first &lt;button&gt;
+document.querySelectorAll('li')    // NodeList of every &lt;li&gt;</code></pre>
+
+      <h2>Iterate</h2>
+      <pre><button class="copy-btn">Copy</button><code class="language-js">document.querySelectorAll('li').forEach(el =&gt; {
+  el.classList.add('highlight');
+});</code></pre>
+
+      <h2>Edit content & attributes</h2>
+      <pre><button class="copy-btn">Copy</button><code class="language-js">const img = document.querySelector('img.thumb');
+img.alt = 'Thumbnail';             // attribute
+img.setAttribute('width', '320');  // attribute via setter
+img.src = '/path/to/image.jpg';    // property</code></pre>
+
+      <h2>Events</h2>
+      <pre><button class="copy-btn">Copy</button><code class="language-js">document.querySelector('button.save').addEventListener('click', e =&gt; {
+  e.preventDefault();
+  console.log('Saved!');
+});</code></pre>
+
+      <h2>Next steps</h2>
+      <ul>
+        <li>Use <code>closest()</code> for event delegation</li>
+        <li>Prefer <code>classList.toggle</code> for UI state</li>
+        <li>Handle empty NodeLists safely</li>
+      </ul>
+    </article>
+
+    <footer class="footer">Got value? Share it and subscribe!</footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markup.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-css.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+  <script>
+    document.querySelectorAll('pre').forEach(pre => {
+      const btn = pre.querySelector('.copy-btn'); if (!btn) return;
+      btn.addEventListener('click', async () => {
+        const code = pre.querySelector('code')?.innerText || '';
+        try { await navigator.clipboard.writeText(code); btn.textContent='Copied!'; setTimeout(()=>btn.textContent='Copy', 1200); }
+        catch { btn.textContent='Failed'; setTimeout(()=>btn.textContent='Copy', 1200); }
+      });
+    });
+  </script>
+</body>
+</html>

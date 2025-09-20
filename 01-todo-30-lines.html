@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Build a Todo App in ~30 Lines of JS</title>
+  <meta name="description" content="A tiny todo list that teaches DOM events and localStorage." />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" />
+  <style>pre[class*="language-"]{background:#0b1020}</style>
+</head>
+<body>
+  <div class="container">
+    <header class="nav"><a href="/">← Home</a></header>
+    <article>
+      <h1>Build a Todo App in ~30 Lines of JS</h1>
+      <p class="meta">We’ll use <code>querySelector</code>, events, and <code>localStorage</code>.</p>
+
+      <h2>HTML</h2>
+      <pre><button class="copy-btn">Copy</button><code class="language-markup">&lt;main&gt;
+  &lt;input id="todo-input" placeholder="Add a task" /&gt;
+  &lt;button id="add-btn"&gt;Add&lt;/button&gt;
+  &lt;ul id="list"&gt;&lt;/ul&gt;
+&lt;/main&gt;</code></pre>
+
+      <h2>CSS</h2>
+      <pre><button class="copy-btn">Copy</button><code class="language-css">main { max-width: 520px; margin: 40px auto; }
+li { display:flex; justify-content:space-between; padding:6px 0; }
+button { cursor:pointer; }</code></pre>
+
+      <h2>JavaScript</h2>
+      <pre><button class="copy-btn">Copy</button><code class="language-js">const input = document.querySelector('#todo-input');
+const add = document.querySelector('#add-btn');
+const list = document.querySelector('#list');
+
+const save = () => localStorage.setItem('todos', list.innerHTML);
+const load = () => list.innerHTML = localStorage.getItem('todos') || '';
+load();
+
+add.addEventListener('click', () => {
+  if (!input.value.trim()) return;
+  const li = document.createElement('li');
+  li.innerHTML = input.value + ' &lt;button class="rm"&gt;×&lt;/button&gt;';
+  list.appendChild(li);
+  input.value = '';
+  save();
+});
+
+list.addEventListener('click', e => {
+  if (e.target.classList.contains('rm')) {
+    e.target.parentElement.remove(); save();
+  }
+});</code></pre>
+
+      <h2>What to try next</h2>
+      <ul>
+        <li>Enter key to add</li>
+        <li>Check/uncheck + CSS strike‑through</li>
+        <li>Export/Import JSON</li>
+      </ul>
+    </article>
+
+    <footer class="footer">Enjoyed this? Share it and subscribe!</footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markup.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-css.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+  <script>
+    document.querySelectorAll('pre').forEach(pre => {
+      const btn = pre.querySelector('.copy-btn'); if (!btn) return;
+      btn.addEventListener('click', async () => {
+        const code = pre.querySelector('code')?.innerText || '';
+        try { await navigator.clipboard.writeText(code); btn.textContent='Copied!'; setTimeout(()=>btn.textContent='Copy', 1200); }
+        catch { btn.textContent='Failed'; setTimeout(()=>btn.textContent='Copy', 1200); }
+      });
+    });
+  </script>
+</body>
+</html>
